@@ -1,4 +1,12 @@
 # tic_tac_toe
+@suubcity your usage of underscores suggests you want to indicate private variables, but you expose _gameboardArray by returning it at the end of your gameboard. Your gameboard should concern itself with the board and only provide an interface for the rest of the application to use. You might want to rethink that. 
+
+Render probably should not be in caps?
+
+And declare both your gameboard and _gameboardArray  with const instead of let. You can modify an array declared with const, you just can't re-assign it.
+
+You seem to be more or less on the right track.
+
 
 You’re going to store the gameboard as an array inside of a Gameboard object, so start there! 
 

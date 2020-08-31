@@ -7,11 +7,34 @@
     <title>Tic Tac Toe</title>
   </head>
   <body>
+    <div id="popUpContainer">
+      <div id="nameBothPlayer" class="popUp">Please enter names for each player.<br><br><button id="nameBothPlayerOkButton">OK</button></div>
+    </div>
     <div id="top">
       <h1>Tic Tac Toe</h1>
-      <div id="scoreboard"></div>
+      <div id="topContainer1" class="displayFlex">
+        <div id="players">
+          <h3>Player X</h3>
+          <input
+            type="text"
+            id="playerXTextInput"
+            class="playerTextInput"
+            placeholder="Enter Name Here"
+          />
+          <h3>Player O</h3>
+          <input
+            type="text"
+            id="playerOTextInput"
+            class="playerTextInput"
+            placeholder="Enter Name Here"
+          />
+        </div>
+        <div>
+          <button id="startGameButton">Start Game</button>
+        </div>
+      </div>
     </div>
-    <div id="mainContainer">
+    <div id="gameBoardContainer" class="displayNone">
       <div id="gameBoard">
         <div class="gameBoardSquare" id="square1"></div>
         <div class="gameBoardSquare" id="square2"></div>

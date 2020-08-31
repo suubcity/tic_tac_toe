@@ -37,40 +37,94 @@ img {
 }
 
 button {
-    padding: 0;
-    border: none;
-    font: inherit;
-    color: inherit;
-    background-color: transparent;
-    /* show a hand cursor on hover; some argue that we
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  /* show a hand cursor on hover; some argue that we
     should keep the default arrow cursor for buttons */
-    cursor: pointer;
-  }
+  cursor: pointer;
+}
 /* #endregion css reset*/
+
+
+
 body {
   font-family: Helvetica, sans-serif;
 }
 
+#popUpContainer {
+  
+  position: fixed;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.popUp {
+  border-radius: 0.2rem;
+  border: .05rem solid black;
+  padding: 2rem;
+  background: rgb(236, 171, 165);
+}
+
 #top {
+  
   padding: 1rem;
   background: whitesmoke;
-  height: 10rem;
+ 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#topContainer1 {
+  
+  align-items: flex-end;
+}
+
+#topContainer1 > * {
+  padding: 1rem;
+}
+
+button {
+  padding: .5rem 1rem;
+  background: white;
+  transition: background .2s;
+  border-radius: .1rem;
+  border: 1px solid black;
+}
+#startGameButton:hover {
+  background: rgb(165, 208, 236);
 }
 
 h1 {
   text-align: center;
 }
 
-#scoreboard {
-
+#players > * {
+  padding: .5rem;
 }
 
-#mainContainer {
+#gameBoardContainer {
   padding: 1rem;
-  display: flex;
+  
   justify-content: center;
   align-items: center;
 }
+
+.displayNone {
+  display: none;
+}
+
+.displayFlex {
+  display: flex;
+}
+
+
 
 /* #region gameBoard  */
 #gameBoard {
@@ -91,3 +145,5 @@ h1 {
 }
 
 /* #endregion gameBoard  */
+
+
