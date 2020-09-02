@@ -48,54 +48,64 @@ button {
 }
 /* #endregion css reset*/
 
-
-
 body {
   font-family: Helvetica, sans-serif;
 }
 
-#popUpContainer {
-  
+.popUpContainer {
   position: fixed;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: whitesmoke;
+}
+
+.popUp {
+  padding: 2rem;
+  text-align: center;
+
+}
+
+#resultPopUp {
+  z-index: 1;
+}
+
+p {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+#top {
   display: flex;
+  flex-direction: row;
+}
+
+#topContainer1 {
   width: 100vw;
   height: 100vh;
   align-items: center;
   justify-content: center;
 }
 
-.popUp {
-  border-radius: 0.2rem;
-  border: .05rem solid black;
-  padding: 2rem;
-  background: rgb(236, 171, 165);
-}
-
-#top {
-  
-  padding: 1rem;
+#players {
+  padding: 1.5rem;
+  border-radius: 0.1rem;
+  border: 1px solid black;
   background: whitesmoke;
- 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#topContainer1 {
-  
-  align-items: flex-end;
-}
-
-#topContainer1 > * {
-  padding: 1rem;
 }
 
 button {
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   background: white;
-  transition: background .2s;
-  border-radius: .1rem;
+  transition: background 0.2s;
+  border-radius: 0.1rem;
   border: 1px solid black;
+}
+
+#startGameButton {
+  margin-left: 1rem;
 }
 #startGameButton:hover {
   background: rgb(165, 208, 236);
@@ -103,17 +113,11 @@ button {
 
 h1 {
   text-align: center;
+  font-size: 3rem;
 }
 
 #players > * {
-  padding: .5rem;
-}
-
-#gameBoardContainer {
-  padding: 1rem;
-  
-  justify-content: center;
-  align-items: center;
+  padding: 0.5rem;
 }
 
 .displayNone {
@@ -127,23 +131,43 @@ h1 {
 
 
 /* #region gameBoard  */
+
+#boardTitle {
+  padding-bottom: 1rem;
+}
+
+#gameBoardContainer {
+  padding: 1rem;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#gameBoardBorder {
+  padding: 2rem;
+  background: whitesmoke;
+  border-radius: 0.1rem;
+  border: 1px solid black;
+}
+
 #gameBoard {
-  background: rgb(187, 187, 187);
+  background: whitesmoke;
   height: 25rem;
   width: 25rem;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
 }
 
 .gameBoardSquare {
+  background: rgb(165, 208, 236);
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 4rem;
-  border: 5px solid white;
 }
 
 /* #endregion gameBoard  */
-
-

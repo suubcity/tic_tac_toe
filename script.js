@@ -14,48 +14,31 @@ const player = (() => {
   //querySelectors
   const _PLAYER_TEXT_INPUTS = document.querySelectorAll(".playerTextInput");
 
-  const _GAME_BOARD_CONTAINER = document.querySelector("#gameBoardContainer");
-
   const _START_GAME_BUTTON = document.querySelector("#startGameButton");
 
-  const _TOP_CONTAINER_1 = document.querySelector("#topContainer1");
   //functions
-  const _TOGGLE_DISPLAY = (element) => {
-    element.classList.toggle("displayFlex");
-    element.classList.toggle("displayNone");
-  };
-
   const _GET_NAME = (index) => {
     return _PLAYER_TEXT_INPUTS[index].value;
   };
+
   const _CREATE_PLAYERS = () => {
     playerX = _PLAYER_FACTORY(_GET_NAME(0), "x");
     playerO = _PLAYER_FACTORY(_GET_NAME(1), "o");
   };
 
-  const _THERE_ARE_2_PLAYER_NAMES = () => {
-    return playerX.name !== "" && playerO.name !== "";
-  };
-
   //event listeners
-
-  _START_GAME_BUTTON.addEventListener('click', () => {
-      if (_THERE_ARE_2_PLAYER_NAMES()) {
-        _TOGGLE_DISPLAY(_GAME_BOARD_CONTAINER);
-        _TOGGLE_DISPLAY(_TOP_CONTAINER_1);
-      }
-      alert("Please enter name for both players.");
-  });
-
   _PLAYER_TEXT_INPUTS.forEach((textInput) => {
     textInput.addEventListener("change", () => {
       _CREATE_PLAYERS();
       currentPlayer = playerX;
-    
     });
   });
 
-  _CREATE_PLAYERS();
+  
+_CREATE_PLAYERS();
+ 
+
+
   return {
     get currentPlayer() {
       return currentPlayer;
@@ -71,6 +54,13 @@ const player = (() => {
 
     get playerO() {
       return playerO;
+    },
+    set playerX(player) {
+      playerX = player;
+    },
+
+    set playerO(player) {
+      playerO = player;
     },
   };
 })();
@@ -104,6 +94,7 @@ let game = (() => {
     if (gameboard.gameboardArray[squareNumber] === "") {
       gameboard.gameboardArray[squareNumber] = _GET_PLAYER_SYMBOL();
       _WIN_TEST(_GET_PLAYER_SYMBOL());
+
       _TOGGLE_PLAYER();
     }
   };
@@ -144,7 +135,7 @@ let game = (() => {
         gameboard.gameboardArray[6] === playerSymbol)
       //#endregion
     ) {
-      console.log(player.currentPlayer.name + " wins");
+      gameboard.DISPLAY_RESULT(player.currentPlayer.name + " wins.");
     }
   };
 
@@ -152,7 +143,7 @@ let game = (() => {
     if (gameboard.gameboardArray.some((item) => item === "")) {
       return;
     }
-    console.log("tie");
+    gameboard.DISPLAY_RESULT("It's a tie.");
   };
 })();
 
@@ -160,20 +151,104 @@ let game = (() => {
 
 //#region gameboard
 const gameboard = (() => {
+  //init
+  let gameboardArray = ["", "", "", "", "", "", "", "", ""];
+
+  //querySelectors
+  const _PLAYER_TEXT_INPUTS = document.querySelectorAll(".playerTextInput");
+
   const _GAME_BOARD_SQUARES = document.querySelectorAll(".gameBoardSquare");
-  const gameboardArray = ["", "", "", "", "", "", "", "", ""];
+
+  const _GAME_BOARD_CONTAINER = document.querySelector("#gameBoardContainer");
+
+  const _START_GAME_BUTTON = document.querySelector("#startGameButton");
+
+  const _TOP_CONTAINER_1 = document.querySelector("#topContainer1");
+
+  const _NAME_BOTH_PLAYER_POP_UP = document.querySelector(
+    "#nameBothPlayerPopUp"
+  );
+
+  const _NAME_BOTH_PLAYER_OK_BUTTON = document.querySelector(
+    "#nameBothPlayerOkButton"
+  );
+
+  const _RESULT_POP_UP = document.querySelector("#resultPopUp");
+
+  const _RESULT_MESSAGE = document.querySelector("#resultMessage");
+
+  const _NEW_GAME_BUTTON = document.querySelector("#newGameButton");
+
+  //eventListeners
+  _START_GAME_BUTTON.addEventListener("click", () => {
+    if (_THERE_ARE_2_PLAYER_NAMES()) {
+      _TOGGLE_DISPLAY(_GAME_BOARD_CONTAINER);
+      _TOGGLE_DISPLAY(_TOP_CONTAINER_1);
+    } else {
+      _TOGGLE_DISPLAY(_NAME_BOTH_PLAYER_POP_UP);
+      _TOGGLE_DISPLAY(_TOP_CONTAINER_1);
+    }
+  });
+
+  _NAME_BOTH_PLAYER_OK_BUTTON.addEventListener("click", () => {
+    _TOGGLE_DISPLAY(_NAME_BOTH_PLAYER_POP_UP);
+    _TOGGLE_DISPLAY(_TOP_CONTAINER_1);
+  });
+
+  _NEW_GAME_BUTTON.addEventListener("click", () => {
+    _CLEAR_ARRAY();
+    _CLEAR_PLAYERS();
+    _TOGGLE_DISPLAY(_TOP_CONTAINER_1);
+    _TOGGLE_DISPLAY(_GAME_BOARD_CONTAINER);
+    _TOGGLE_DISPLAY(_RESULT_POP_UP);
+    _CLEAR_PLAYER_TEXT_INPUTS();
+    RENDER();
+    
+  });
+
+  //functions
+
+  const _CLEAR_PLAYER_TEXT_INPUTS = () => {
+    _PLAYER_TEXT_INPUTS.forEach((item) => {
+      item.value = "";
+    });
+  };
+
+  const DISPLAY_RESULT = (message) => {
+    _RESULT_MESSAGE.textContent = message;
+    _TOGGLE_DISPLAY(_RESULT_POP_UP);
+    _TOGGLE_BLUR_ELEMENT(_GAME_BOARD_CONTAINER);
+  };
+
+  const _THERE_ARE_2_PLAYER_NAMES = () => {
+    return player.playerX.name !== "" && player.playerO.name !== "";
+  };
+
   const RENDER = () => {
     _GAME_BOARD_SQUARES.forEach((item, index) => {
       item.textContent = gameboardArray[index];
     });
   };
+
+  const _TOGGLE_DISPLAY = (element) => {
+    element.classList.toggle("displayFlex");
+    element.classList.toggle("displayNone");
+  };
+
+  const _CLEAR_ARRAY = () => {
+    gameboardArray = ["", "", "", "", "", "", "", "", ""];
+  };
+  const _CLEAR_PLAYERS = () => {
+    player.PlayerX = "";
+    player.playerO = "";
+  };
+
   return {
     RENDER,
+    DISPLAY_RESULT,
     get gameboardArray() {
       return gameboardArray;
     },
   };
 })();
 //#endregion gameboard
-
-// //#endregion win logic
